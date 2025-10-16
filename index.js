@@ -23,6 +23,10 @@ app.get('/webhook', (req, res) => {
   }
 });
 
+app.get('/test', (req, res) => {
+  res.send('Test endpoint is working');
+});
+
 app.post('/webhook', (req, res) => {
   console.log('Webhook payload:', JSON.stringify(req.body, null, 2));
   res.status(200).send('Webhook received');
