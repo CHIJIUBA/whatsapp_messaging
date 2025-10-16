@@ -245,5 +245,4 @@ async function sendMessage(to, body) {
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');
-  sendMessage('2348132547926', 'Hello Onyii how are you doing ?');
 });
