@@ -117,27 +117,27 @@ async function sendMessage(to, body) {
   });
 }
 
-// async function replyMessage(to, body, messageId) {
-//   await axios({
-//     url: 'https://graph.facebook.com/v21.0/phone_number_id/messages',
-//     method: 'post',
-//     headers: {
-//       Authorization: `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
-//       'Content-Type': 'application/json'
-//     },
-//     data: JSON.stringify({
-//       messaging_product: 'whatsapp',
-//       to,
-//       type: 'text',
-//       text: {
-//         body
-//       },
-//       context: {
-//         message_id: messageId
-//       }
-//     })
-//   });
-// }
+async function replyMessage(to, body, messageId) {
+  await axios({
+    url: 'https://graph.facebook.com/v22.0/812843348581240/messages',
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify({
+      messaging_product: 'whatsapp',
+      to,
+      type: 'text',
+      text: {
+        body
+      },
+      context: {
+        message_id: messageId
+      }
+    })
+  });
+}
 
 // async function sendList(to) {
 //   await axios({
