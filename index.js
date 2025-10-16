@@ -24,6 +24,7 @@ app.get('/webhook', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
+  console.log('its working');
   res.send('Test endpoint is working');
 });
 
