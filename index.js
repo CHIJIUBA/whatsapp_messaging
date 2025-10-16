@@ -29,73 +29,73 @@ app.get('/test', (req, res) => {
   res.send('Test endpoint is working');
 });
 
-app.post('/webhook', (req, res) => {
-  console.log(JSON.stringify(req.body, null, 2));
-  res.status(200).send('Webhook received');
-});
-
-// app.post('/webhook', async (req, res) => {
-//   const { entry } = req.body;
-
-//   if (!entry || entry.length === 0) {
-//     return res.status(400).send('Invalid Request');
-//   }
-
-//   const changes = entry[0].changes;
-
-//   if (!changes || changes.length === 0) {
-//     return res.status(400).send('Invalid Request');
-//   }
-
-//   const statuses = changes[0].value.statuses ? changes[0].value.statuses[0] : null;
-//   const messages = changes[0].value.messages ? changes[0].value.messages[0] : null;
-
-//   if (statuses) {
-//     // Handle message status
-//     console.log(`
-//       MESSAGE STATUS UPDATE:
-//       ID: ${statuses.id},
-//       STATUS: ${statuses.status}
-//     `);
-//   }
-
-//   if (messages) {
-//     // Handle received messages
-//     if (messages.type === 'text') {
-//       if (messages.text.body.toLowerCase() === 'hello') {
-//         replyMessage(messages.from, 'Hello. How are you?', messages.id);
-//       }
-
-//       if (messages.text.body.toLowerCase() === 'list') {
-//         sendList(messages.from);
-//       }
-
-//       if (messages.text.body.toLowerCase() === 'buttons') {
-//         sendReplyButtons(messages.from);
-//       }
-//     }
-
-//     if (messages.type === 'interactive') {
-//       if (messages.interactive.type === 'list_reply') {
-//         sendMessage(
-//           messages.from,
-//           `You selected the option with ID ${messages.interactive.list_reply.id} - Title ${messages.interactive.list_reply.title}`
-//         );
-//       }
-
-//       if (messages.interactive.type === 'button_reply') {
-//         sendMessage(
-//           messages.from,
-//           `You selected the button with ID ${messages.interactive.button_reply.id} - Title ${messages.interactive.button_reply.title}`
-//         );
-//       }
-//     }
-
-//     console.log(JSON.stringify(messages, null, 2));
-//   }
-
-//   res.status(200).send('Webhook processed');
+// app.post('/webhook', (req, res) => {
+//   console.log(JSON.stringify(req.body, null, 2));
+//   res.status(200).send('Webhook received');
 // });
+
+app.post('/webhook', async (req, res) => {
+  const { entry } = req.body;
+
+  if (!entry || entry.length === 0) {
+    return res.status(400).send('Invalid Request');
+  }
+
+  const changes = entry[0].changes;
+
+  if (!changes || changes.length === 0) {
+    return res.status(400).send('Invalid Request');
+  }
+
+  const statuses = changes[0].value.statuses ? changes[0].value.statuses[0] : null;
+  const messages = changes[0].value.messages ? changes[0].value.messages[0] : null;
+
+  if (statuses) {
+    // Handle message status
+    console.log(`
+      MESSAGE STATUS UPDATE:
+      ID: ${statuses.id},
+      STATUS: ${statuses.status}
+    `);
+  }
+
+  if (messages) {
+    // Handle received messages
+    if (messages.type === 'text') {
+      if (messages.text.body.toLowerCase() === 'hello') {
+        replyMessage(messages.from, 'Hello. How are you?', messages.id);
+      }
+
+      // if (messages.text.body.toLowerCase() === 'list') {
+      //   sendList(messages.from);
+      // }
+
+      // if (messages.text.body.toLowerCase() === 'buttons') {
+      //   sendReplyButtons(messages.from);
+      // }
+    }
+
+    // if (messages.type === 'interactive') {
+    //   if (messages.interactive.type === 'list_reply') {
+    //     sendMessage(
+    //       messages.from,
+    //       `You selected the option with ID ${messages.interactive.list_reply.id} - Title ${messages.interactive.list_reply.title}`
+    //     );
+    //   }
+
+    //   if (messages.interactive.type === 'button_reply') {
+    //     sendMessage(
+    //       messages.from,
+    //       `You selected the button with ID ${messages.interactive.button_reply.id} - Title ${messages.interactive.button_reply.title}`
+    //     );
+    //   }
+    // }
+
+    console.log(JSON.stringify(messages, null, 2));
+  }
+
+  res.status(200).send('Webhook processed');
+});
 
 async function sendMessage(to, body) {
   await axios({
