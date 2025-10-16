@@ -1,8 +1,9 @@
 const express = require('express');
 const axios = require('axios');
 
-const WHATSAPP_ACCESS_TOKEN = 'my-access-token';
 const WEBHOOK_VERIFY_TOKEN = 'my-verify-token';
+const WHATSAPP_ACCESS_TOKEN =
+  'EAAdoeGXlprYBPuAePSPM33ih72rtEE2htZBY6TZB9VaHsg6aGSjnoZBXl64JGgMajQjKMFAZC1AOUAkSik4RqCCV8CSb1kV9J4K0YMDrgO4IK12TKuKv9V8v1yW8eOzqS1J8VgJkCoSPkaAHZBR4CYsZCHZBIv2OjNZCn4YQyQtcI7MJmO0ZB61TayRsDd6qYDYeM7wZDZD';
 
 const app = express();
 app.use(express.json());
@@ -29,7 +30,7 @@ app.get('/test', (req, res) => {
 });
 
 app.post('/webhook', (req, res) => {
-  console.log('Webhook payload:', JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(req.body, null, 2));
   res.status(200).send('Webhook received');
 });
 
@@ -96,24 +97,24 @@ app.post('/webhook', (req, res) => {
 //   res.status(200).send('Webhook processed');
 // });
 
-// async function sendMessage(to, body) {
-//   await axios({
-//     url: 'https://graph.facebook.com/v21.0/phone_number_id/messages',
-//     method: 'post',
-//     headers: {
-//       Authorization: `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
-//       'Content-Type': 'application/json'
-//     },
-//     data: JSON.stringify({
-//       messaging_product: 'whatsapp',
-//       to,
-//       type: 'text',
-//       text: {
-//         body
-//       }
-//     })
-//   });
-// }
+async function sendMessage(to, body) {
+  await axios({
+    url: 'https://graph.facebook.com/v22.0/812843348581240/messages',
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify({
+      messaging_product: 'whatsapp',
+      to,
+      type: 'text',
+      text: {
+        body
+      }
+    })
+  });
+}
 
 // async function replyMessage(to, body, messageId) {
 //   await axios({
