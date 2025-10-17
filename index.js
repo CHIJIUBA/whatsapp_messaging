@@ -63,8 +63,8 @@ app.post('/webhook', async (req, res) => {
     // Handle received messages
     if (messages.type === 'text') {
       if (messages.text.body.toLowerCase() === 'hello') {
-        sendMessage(2348167310788, 'Hello how are you');
-        // replyMessage(messages.from, 'Hello. How are you?', messages.id);
+        // sendMessage(2348167310788, 'Hello how are you');
+        replyMessage(2348167310788, 'Hello. How are you?', messages.id);
       }
 
       // if (messages.text.body.toLowerCase() === 'list') {
